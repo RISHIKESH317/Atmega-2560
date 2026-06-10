@@ -1,0 +1,32 @@
+#include "timer_configure.h"
+
+#define DDRB_REG  (*(volatile uint8_t *)0x24)
+#define PORTB_REG (*(volatile uint8_t *)0x25)
+
+void timer1_1sec_delay_ctc()
+{
+    timer1_setmode(TIMER1_CTC_MODE);
+    timer1_setcounter(0);
+    timer1_setcompareA(15624);
+    timer1_clear_compareA_flag();
+    timer1_start(TIMER_PRESCALER_1024);
+
+    while((TIFR1 & (1 << 1)) == 0);
+
+    timer1_clear_compareA_flag();
+    timer1_stop();
+}
+
+void setup()
+{
+    DDRB_REG = 0xFF;
+}
+
+void loop()
+{
+    PORTB_REG = 0xFF;
+    timer1_1sec_delay_ctc();
+
+    PORTB_REG = 0x00;
+    timer1_1sec_delay_ctc();
+}

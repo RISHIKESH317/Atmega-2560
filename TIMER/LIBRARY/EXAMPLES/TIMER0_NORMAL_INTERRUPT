@@ -1,0 +1,36 @@
+#include "timer_configure.h"
+#include <avr/interrupt.h>
+
+#define DDRB_REG  (*(volatile uint8_t *)0x24)
+#define PORTB_REG (*(volatile uint8_t *)0x25)
+
+volatile uint16_t overflow_count = 0;
+
+void setup()
+{
+    DDRB_REG = 0xFF;
+
+    timer0_setmode(TIMER0_NORMAL_MODE);
+    timer0_setcounter(6);
+
+    timer0_overflow_interrupt_enable();
+    timer0_start(TIMER_PRESCALER_64);
+
+    global_interrupt_enable();
+}
+
+void loop()
+{
+}
+
+ISR(TIMER0_OVF_vect)
+{
+    timer0_setcounter(6);
+    overflow_count++;
+
+    if(overflow_count >= 1000)
+    {
+        overflow_count = 0;
+        PORTB_REG ^= 0xFF;
+    }
+}

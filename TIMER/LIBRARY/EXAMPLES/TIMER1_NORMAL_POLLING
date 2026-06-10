@@ -1,0 +1,31 @@
+#include "timer_configure.h"
+
+#define DDRB_REG  (*(volatile uint8_t *)0x24)
+#define PORTB_REG (*(volatile uint8_t *)0x25)
+
+void timer1_1sec_delay_normal()
+{
+    timer1_setmode(TIMER1_NORMAL_MODE);
+    timer1_setcounter(49911);
+    timer1_clear_overflow_flag();
+    timer1_start(TIMER_PRESCALER_1024);
+
+    while((TIFR1 & (1 << 0)) == 0);
+
+    timer1_clear_overflow_flag();
+    timer1_stop();
+}
+
+void setup()
+{
+    DDRB_REG = 0xFF;
+}
+
+void loop()
+{
+    PORTB_REG = 0xFF;
+    timer1_1sec_delay_normal();
+
+    PORTB_REG = 0x00;
+    timer1_1sec_delay_normal();
+}
