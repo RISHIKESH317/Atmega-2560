@@ -119,4 +119,28 @@ void timer1_compareA_interrupt_disable(void);
 void timer1_clear_overflow_flag(void);
 void timer1_clear_compareA_flag(void);
 
+/* ================= PWM FUNCTIONS ================= */
+
+/* Timer0 PWM Output Mode */
+void timer0_pwmA_non_inverting(void);
+void timer0_pwmA_inverting(void);
+void timer0_pwmB_non_inverting(void);
+void timer0_pwmB_inverting(void);
+
+/* Timer1 PWM Output Mode */
+void timer1_pwmA_non_inverting(void);
+void timer1_pwmA_inverting(void);
+void timer1_pwmB_non_inverting(void);
+void timer1_pwmB_inverting(void);
+void timer1_pwmC_non_inverting(void);
+void timer1_pwmC_inverting(void);
+
+/* Duty Cycle */
+void timer0_set_duty_A(uint8_t duty);
+void timer0_set_duty_B(uint8_t duty);
+
+void timer1_set_duty_A(uint16_t duty);
+void timer1_set_duty_B(uint16_t duty);
+void timer1_set_duty_C(uint16_t duty);
+
 #endif
