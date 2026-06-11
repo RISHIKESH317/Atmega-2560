@@ -135,6 +135,8 @@ void timer1_pwmB_inverting(void);
 void timer1_pwmC_non_inverting(void);
 void timer1_pwmC_inverting(void);
 
+void timer1_set_top(uint16_t top);
+
 /* Duty Cycle */
 void timer0_set_duty_A(uint8_t duty);
 void timer0_set_duty_B(uint8_t duty);
