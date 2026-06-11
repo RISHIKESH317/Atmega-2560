@@ -1,5 +1,13 @@
 #include "timer_configure.h"
 
+/*  (bit manupulation hints ) 
+
+&= ~  -> Clear bit to 0
+^=    -> Toggle bit
+|=    -> to set bit 
+
+*/
+
 /*
  * Enable global interrupts by setting I-bit in SREG.
  */
