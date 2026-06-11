@@ -309,3 +309,145 @@ void timer1_clear_compareA_flag(void)
 {
     TIFR1 = (1 << 1);
 }
+
+/* =========================================================
+   TIMER0 PWM FUNCTIONS
+   ========================================================= */
+
+/*
+ * Timer0 OC0A Non-Inverting PWM
+ * COM0A1:0 = 10
+ */
+void timer0_pwmA_non_inverting(void)
+{
+    TCCR0A |=  (1 << 7);   // COM0A1 = 1
+    TCCR0A &= ~(1 << 6);   // COM0A0 = 0
+}
+
+/*
+ * Timer0 OC0A Inverting PWM
+ * COM0A1:0 = 11
+ */
+void timer0_pwmA_inverting(void)
+{
+    TCCR0A |= (1 << 7) | (1 << 6);
+}
+
+/*
+ * Timer0 OC0B Non-Inverting PWM
+ * COM0B1:0 = 10
+ */
+void timer0_pwmB_non_inverting(void)
+{
+    TCCR0A |=  (1 << 5);   // COM0B1 = 1
+    TCCR0A &= ~(1 << 4);   // COM0B0 = 0
+}
+
+/*
+ * Timer0 OC0B Inverting PWM
+ * COM0B1:0 = 11
+ */
+void timer0_pwmB_inverting(void)
+{
+    TCCR0A |= (1 << 5) | (1 << 4);
+}
+
+/*
+ * Timer0 Channel A Duty Cycle
+ * 8-bit duty range: 0 to 255
+ */
+void timer0_set_duty_A(uint8_t duty)
+{
+    OCR0A = duty;
+}
+
+/*
+ * Timer0 Channel B Duty Cycle
+ * 8-bit duty range: 0 to 255
+ */
+void timer0_set_duty_B(uint8_t duty)
+{
+    OCR0B = duty;
+}
+
+/* =========================================================
+   TIMER1 PWM FUNCTIONS
+   ========================================================= */
+
+/*
+ * Timer1 OC1A Non-Inverting PWM
+ * COM1A1:0 = 10
+ */
+void timer1_pwmA_non_inverting(void)
+{
+    TCCR1A |=  (1 << 7);   // COM1A1 = 1
+    TCCR1A &= ~(1 << 6);   // COM1A0 = 0
+}
+
+/*
+ * Timer1 OC1A Inverting PWM
+ * COM1A1:0 = 11
+ */
+void timer1_pwmA_inverting(void)
+{
+    TCCR1A |= (1 << 7) | (1 << 6);
+}
+
+/*
+ * Timer1 OC1B Non-Inverting PWM
+ * COM1B1:0 = 10
+ */
+void timer1_pwmB_non_inverting(void)
+{
+    TCCR1A |=  (1 << 5);   // COM1B1 = 1
+    TCCR1A &= ~(1 << 4);   // COM1B0 = 0
+}
+
+/*
+ * Timer1 OC1B Inverting PWM
+ * COM1B1:0 = 11
+ */
+void timer1_pwmB_inverting(void)
+{
+    TCCR1A |= (1 << 5) | (1 << 4);
+}
+
+/*
+ * Timer1 OC1C Non-Inverting PWM
+ * COM1C1:0 = 10
+ */
+void timer1_pwmC_non_inverting(void)
+{
+    TCCR1A |=  (1 << 3);   // COM1C1 = 1
+    TCCR1A &= ~(1 << 2);   // COM1C0 = 0
+}
+
+/*
+ * Timer1 OC1C Inverting PWM
+ * COM1C1:0 = 11
+ */
+void timer1_pwmC_inverting(void)
+{
+    TCCR1A |= (1 << 3) | (1 << 2);
+}
+
+/*
+ * Timer1 Channel A Duty Cycle
+ * For 8-bit PWM: 0 to 255
+ * For 10-bit PWM: 0 to 1023
+ * For 16-bit/custom TOP PWM: depends on TOP value
+ */
+void timer1_set_duty_A(uint16_t duty)
+{
+    OCR1A = duty;
+}
+
+void timer1_set_duty_B(uint16_t duty)
+{
+    OCR1B = duty;
+}
+
+void timer1_set_duty_C(uint16_t duty)
+{
+    OCR1C = duty;
+}
