@@ -1,0 +1,17 @@
+#include "gpio_configure.h"
+
+void setup()
+{
+    gpio_port_config(GPIO_PORT_B, GPIO_PORT_OUTPUT);
+}
+
+void loop()
+{
+    gpio_port_write(GPIO_PORT_B, 0xFF);   // all PORTB pins HIGH
+
+    for(volatile uint32_t i = 0; i < 50000; i++);
+
+    gpio_port_write(GPIO_PORT_B, 0x00);   // all PORTB pins LOW
+
+    for(volatile uint32_t i = 0; i < 50000; i++);
+}

@@ -190,13 +190,16 @@ void timer1_setmode(uint16_t mode)
         TCCR1B &= ~(1 << 4);               // Clear WGM13
     }
     else if(mode == TIMER1_FAST_PWM_MODE)
-    {
-        // Fast PWM 8-bit mode, WGM13:0 = 0101
-        TCCR1A |=  (1 << 0);               // Set WGM10
-        TCCR1A &= ~(1 << 1);               // Clear WGM11
-        TCCR1B |=  (1 << 3);               // Set WGM12
-        TCCR1B &= ~(1 << 4);               // Clear WGM13
-    }
+{
+    // Fast PWM Mode 14, WGM13:0 = 1110
+    // TOP = ICR1
+
+    TCCR1A &= ~(1 << 0);   // WGM10 = 0
+    TCCR1A |=  (1 << 1);   // WGM11 = 1
+
+    TCCR1B |=  (1 << 3);   // WGM12 = 1
+    TCCR1B |=  (1 << 4);   // WGM13 = 1
+}
     else if(mode == TIMER1_PHASE_CORRECT_MODE)
     {
         // Phase Correct PWM 8-bit mode, WGM13:0 = 0001
@@ -206,6 +209,10 @@ void timer1_setmode(uint16_t mode)
     }
 }
 
+void timer1_set_top(uint16_t top)
+{
+    ICR1 = top;
+}
 /*
  * Start Timer1 with selected prescaler.
  * Prescaler value is written into CS12:CS10 bits.
