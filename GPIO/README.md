@@ -298,6 +298,54 @@ Button pressed     → input reads LOW
 
 ---
 
+## Keypad Support
+
+This GPIO module also includes basic 4x4 matrix keypad support using direct GPIO control.
+
+The keypad driver is built on top of the GPIO library and uses one complete GPIO port for scanning the keypad.
+
+### Keypad Pin Assumption
+
+The keypad library assumes the following connection:
+
+```text
+Upper nibble bits 4-7  → Column pins
+Lower nibble bits 0-3  → Row pins
+```
+
+Example using PORTL:
+
+```text
+PL7 PL6 PL5 PL4 PL3 PL2 PL1 PL0
+ C4  C3  C2  C1  R4  R3  R2  R1
+```
+
+### Keypad Features
+
+* 4x4 matrix keypad scanning
+* Internal pull-up based row reading
+* Column-by-column scanning method
+* Software debounce
+* Wait-for-release support
+* Returns actual key characters such as `1`, `2`, `A`, `D`
+
+### Keypad Functions
+
+| Function              | Description                                                                   |
+| --------------------- | ----------------------------------------------------------------------------- |
+| `keypad_init(port)`   | Initializes keypad port with upper nibble as output and lower nibble as input |
+| `keypad_scan(port)`   | Scans keypad once and returns pressed key or `KEYPAD_NOT_PRESSED`             |
+| `keypad_getkey(port)` | Waits until a key is pressed and returns the key                              |
+
+### Keypad Working Principle
+
+The keypad is detected by making one column LOW at a time and reading the row pins.
+
+If no key is pressed, all row pins remain HIGH because internal pull-up is enabled.
+
+When a key is pressed, the selected LOW column pulls one row LOW.
+Using the active column and detected row, the library identifies the pressed key.
+
 ## Notes
 
 * This library is written for ATmega2560.
@@ -305,6 +353,7 @@ Button pressed     → input reads LOW
 * PORTI is not included because ATmega2560 does not provide a normal GPIO PORTI.
 * Internal pull-up is useful for switches, push buttons, and keypad row inputs.
 * The library is mainly created for learning low-level embedded programming.
+* The 4x4 keypad library also included.
 
 ---
 
