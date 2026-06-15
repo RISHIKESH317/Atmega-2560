@@ -1,0 +1,19 @@
+#include "gpio_configure.h"
+#include "keypad_configure.h"
+
+char key;
+
+void setup()
+{
+    keypad_init(GPIO_PORT_L);
+
+    // PORTB used to display ASCII value of pressed key
+    gpio_port_config(GPIO_PORT_B, GPIO_PORT_OUTPUT);
+}
+
+void loop()
+{
+    key = keypad_getkey(GPIO_PORT_L);
+
+    gpio_port_write(GPIO_PORT_B, key);
+}
