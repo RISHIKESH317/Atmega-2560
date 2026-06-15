@@ -39,9 +39,6 @@ The library provides support for timer configuration, polling-based timing opera
 | Interrupt Method               | ✓      | ✓      |
 | Prescaler Configuration        | ✓      | ✓      |
 | Compare Register Configuration | ✓      | ✓      |
-| PWM Output Configuration       | ✓      | ✓      |
-| Duty Cycle Configuration       | ✓      | ✓      |
-| Custom TOP using ICR1          | -      | ✓      |
 
 ---
 
@@ -100,12 +97,6 @@ TIMER
 * Clear Overflow Flag
 * Clear Compare Match Flag
 
-### PWM Control
-
-* Configure non-inverting PWM output
-* Configure inverting PWM output
-* Set PWM duty cycle using OCR registers
-* Configure Timer1 Fast PWM Mode 14 using ICR1 as TOP
 ---
 
 ## Example Applications
@@ -128,13 +119,13 @@ TIMER
 
 ## Development Environment
 
-| Tool                 | Usage                              |
-| -------------------- | ---------------------------------- |
-| Arduino IDE          | Code development and uploading     |
-| Wokwi                | Online simulation and testing      |
-| Proteus              | Circuit simulation and verification |
-| ATmega2560 Datasheet | Register reference                 |
-| GitHub               | Version control and documentation  |
+| Tool                 | Usage              |
+| -------------------- | ------------------ |
+| Arduino IDE          | Code Development   |
+| Wokwi                | Simulation         |
+| ATmega2560 Datasheet | Register Reference |
+| GitHub               | Version Control    |
+
 ---
 
 ## Learning Outcomes
