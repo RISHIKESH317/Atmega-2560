@@ -16,33 +16,33 @@
 
 /* ================= TIMER0 REGISTERS ================= */
 
-#define TCCR0A (*(volatile uint8_t *)0x44)   // Timer0 Control Register A
-#define TCCR0B (*(volatile uint8_t *)0x45)   // Timer0 Control Register B
-#define TCNT0  (*(volatile uint8_t *)0x46)   // Timer0 Counter Register
-#define OCR0A  (*(volatile uint8_t *)0x47)   // Timer0 Output Compare Register A
-#define OCR0B  (*(volatile uint8_t *)0x48)   // Timer0 Output Compare Register B
-#define TIFR0  (*(volatile uint8_t *)0x35)   // Timer0 Interrupt Flag Register
-#define TIMSK0 (*(volatile uint8_t *)0x6E)   // Timer0 Interrupt Mask Register
+#define TCCR0A_REG (*(volatile uint8_t *)0x44)   // Timer0 Control Register A
+#define TCCR0B_REG (*(volatile uint8_t *)0x45)   // Timer0 Control Register B
+#define TCNT0_REG  (*(volatile uint8_t *)0x46)   // Timer0 Counter Register
+#define OCR0A_REG  (*(volatile uint8_t *)0x47)   // Timer0 Output Compare Register A
+#define OCR0B_REG  (*(volatile uint8_t *)0x48)   // Timer0 Output Compare Register B
+#define TIFR0_REG  (*(volatile uint8_t *)0x35)   // Timer0 Interrupt Flag Register
+#define TIMSK0_REG (*(volatile uint8_t *)0x6E)   // Timer0 Interrupt Mask Register
 
 /* ================= TIMER1 REGISTERS ================= */
 
-#define TCCR1A (*(volatile uint8_t *)0x80)    // Timer1 Control Register A
-#define TCCR1B (*(volatile uint8_t *)0x81)    // Timer1 Control Register B
-#define TCCR1C (*(volatile uint8_t *)0x82)    // Timer1 Control Register C
+#define TCCR1A_REG (*(volatile uint8_t *)0x80)    // Timer1 Control Register A
+#define TCCR1B_REG (*(volatile uint8_t *)0x81)    // Timer1 Control Register B
+#define TCCR1C_REG (*(volatile uint8_t *)0x82)    // Timer1 Control Register C
 
-#define TCNT1  (*(volatile uint16_t *)0x84)   // Timer1 Counter Register
-#define ICR1   (*(volatile uint16_t *)0x86)   // Timer1 Input Capture Register
+#define TCNT1_REG  (*(volatile uint16_t *)0x84)   // Timer1 Counter Register
+#define ICR1_REG   (*(volatile uint16_t *)0x86)   // Timer1 Input Capture Register
 
-#define OCR1A  (*(volatile uint16_t *)0x88)   // Timer1 Output Compare Register A
-#define OCR1B  (*(volatile uint16_t *)0x8A)   // Timer1 Output Compare Register B
-#define OCR1C  (*(volatile uint16_t *)0x8C)   // Timer1 Output Compare Register C
+#define OCR1A_REG  (*(volatile uint16_t *)0x88)   // Timer1 Output Compare Register A
+#define OCR1B_REG  (*(volatile uint16_t *)0x8A)   // Timer1 Output Compare Register B
+#define OCR1C_REG  (*(volatile uint16_t *)0x8C)   // Timer1 Output Compare Register C
 
-#define TIFR1  (*(volatile uint8_t *)0x36)    // Timer1 Interrupt Flag Register
-#define TIMSK1 (*(volatile uint8_t *)0x6F)    // Timer1 Interrupt Mask Register
+#define TIFR1_REG  (*(volatile uint8_t *)0x36)    // Timer1 Interrupt Flag Register
+#define TIMSK1_REG (*(volatile uint8_t *)0x6F)    // Timer1 Interrupt Mask Register
 
 /* ================= COMMON REGISTER ================= */
 
-#define SREG (*(volatile uint8_t *)0x5F)      // Status Register, bit 7 = Global Interrupt Enable
+#define SREG_REG (*(volatile uint8_t *)0x5F)      // Status Register, bit 7 = Global Interrupt Enable
 
 /* ================= TIMER MODES ================= */
 
