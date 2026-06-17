@@ -2,8 +2,8 @@
 
 A register-level ATmega2560 application demonstrating:
 
-- Timer1 Compare Match Interrupt
-- ADC Interrupt-based Conversion
+- Timer1 Compare Match Interrupt (2 sec )
+- ADC Interrupt-based Conversion (ADC converstion starts after 2sec)
 - Dual 4-Digit Seven Segment Displays
 - Real-time ADC Value Display
 - Voltage Conversion and Display
