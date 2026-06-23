@@ -13,7 +13,7 @@
  */
 void global_interrupt_enable(void)
 {
-    SREG |= (1 << 7);
+    SREG_REG |= (1 << 7);
 }
 
 /*
@@ -21,7 +21,7 @@ void global_interrupt_enable(void)
  */
 void global_interrupt_disable(void)
 {
-    SREG &= ~(1 << 7);
+    SREG_REG &= ~(1 << 7);
 }
 
 /* =========================================================
@@ -41,28 +41,28 @@ void timer0_setmode(uint16_t mode)
     if(mode == TIMER0_NORMAL_MODE)
     {
         // WGM02:0 = 000
-        TCCR0A &= ~((1 << 0) | (1 << 1));  // Clear WGM00, WGM01
-        TCCR0B &= ~(1 << 3);               // Clear WGM02
+        TCCR0A_REG &= ~((1 << 0) | (1 << 1));  // Clear WGM00, WGM01
+        TCCR0B_REG &= ~(1 << 3);               // Clear WGM02
     }
     else if(mode == TIMER0_CTC_MODE)
     {
         // WGM02:0 = 010
-        TCCR0A &= ~(1 << 0);               // Clear WGM00
-        TCCR0A |=  (1 << 1);               // Set WGM01
-        TCCR0B &= ~(1 << 3);               // Clear WGM02
+        TCCR0A_REG &= ~(1 << 0);               // Clear WGM00
+        TCCR0A_REG |=  (1 << 1);               // Set WGM01
+        TCCR0B_REG &= ~(1 << 3);               // Clear WGM02
     }
     else if(mode == TIMER0_FAST_PWM_MODE)
     {
         // WGM02:0 = 011
-        TCCR0A |=  (1 << 0) | (1 << 1);    // Set WGM00, WGM01
-        TCCR0B &= ~(1 << 3);               // Clear WGM02
+        TCCR0A_REG |=  (1 << 0) | (1 << 1);    // Set WGM00, WGM01
+        TCCR0B_REG &= ~(1 << 3);               // Clear WGM02
     }
     else if(mode == TIMER0_PHASE_CORRECT_MODE)
     {
         // WGM02:0 = 001
-        TCCR0A |=  (1 << 0);               // Set WGM00
-        TCCR0A &= ~(1 << 1);               // Clear WGM01
-        TCCR0B &= ~(1 << 3);               // Clear WGM02
+        TCCR0A_REG |=  (1 << 0);               // Set WGM00
+        TCCR0A_REG &= ~(1 << 1);               // Clear WGM01
+        TCCR0B_REG &= ~(1 << 3);               // Clear WGM02
     }
 }
 
@@ -72,8 +72,8 @@ void timer0_setmode(uint16_t mode)
  */
 void timer0_start(uint8_t prescaler)
 {
-    TCCR0B &= ~0x07;               // Clear old CS02:CS00 bits
-    TCCR0B |= (prescaler & 0x07);  // Load new prescaler value
+    TCCR0B_REG &= ~0x07;               // Clear old CS02:CS00 bits
+    TCCR0B_REG |= (prescaler & 0x07);  // Load new prescaler value
 }
 
 /*
@@ -81,7 +81,7 @@ void timer0_start(uint8_t prescaler)
  */
 void timer0_stop(void)
 {
-    TCCR0B &= ~0x07;
+    TCCR0B_REG &= ~0x07;
 }
 
 /*
@@ -89,7 +89,7 @@ void timer0_stop(void)
  */
 void timer0_setcounter(uint8_t value)
 {
-    TCNT0 = value;
+    TCNT0_REG = value;
 }
 
 /*
@@ -97,7 +97,7 @@ void timer0_setcounter(uint8_t value)
  */
 void timer0_setcompareA(uint8_t value)
 {
-    OCR0A = value;
+    OCR0A_REG = value;
 }
 
 /*
@@ -105,7 +105,7 @@ void timer0_setcompareA(uint8_t value)
  */
 void timer0_setcompareB(uint8_t value)
 {
-    OCR0B = value;
+    OCR0B_REG = value;
 }
 
 /*
@@ -114,7 +114,7 @@ void timer0_setcompareB(uint8_t value)
  */
 void timer0_overflow_interrupt_enable(void)
 {
-    TIMSK0 |= (1 << 0);
+    TIMSK0_REG |= (1 << 0);
 }
 
 /*
@@ -122,7 +122,7 @@ void timer0_overflow_interrupt_enable(void)
  */
 void timer0_overflow_interrupt_disable(void)
 {
-    TIMSK0 &= ~(1 << 0);
+    TIMSK0_REG &= ~(1 << 0);
 }
 
 /*
@@ -131,7 +131,7 @@ void timer0_overflow_interrupt_disable(void)
  */
 void timer0_compareA_interrupt_enable(void)
 {
-    TIMSK0 |= (1 << 1);
+    TIMSK0_REG |= (1 << 1);
 }
 
 /*
@@ -139,7 +139,7 @@ void timer0_compareA_interrupt_enable(void)
  */
 void timer0_compareA_interrupt_disable(void)
 {
-    TIMSK0 &= ~(1 << 1);
+    TIMSK0_REG &= ~(1 << 1);
 }
 
 /*
@@ -149,7 +149,7 @@ void timer0_compareA_interrupt_disable(void)
  */
 void timer0_clear_overflow_flag(void)
 {
-    TIFR0 = (1 << 0);
+    TIFR0_REG = (1 << 0);
 }
 
 /*
@@ -159,7 +159,7 @@ void timer0_clear_overflow_flag(void)
  */
 void timer0_clear_compareA_flag(void)
 {
-    TIFR0 = (1 << 1);
+    TIFR0_REG = (1 << 1);
 }
 
 /* =========================================================
@@ -179,39 +179,39 @@ void timer1_setmode(uint16_t mode)
     if(mode == TIMER1_NORMAL_MODE)
     {
         // WGM13:0 = 0000
-        TCCR1A &= ~((1 << 0) | (1 << 1));  // Clear WGM10, WGM11
-        TCCR1B &= ~((1 << 3) | (1 << 4));  // Clear WGM12, WGM13
+        TCCR1A_REG &= ~((1 << 0) | (1 << 1));  // Clear WGM10, WGM11
+        TCCR1B_REG&= ~((1 << 3) | (1 << 4));  // Clear WGM12, WGM13
     }
     else if(mode == TIMER1_CTC_MODE)
     {
         // WGM13:0 = 0100
-        TCCR1A &= ~((1 << 0) | (1 << 1));  // Clear WGM10, WGM11
-        TCCR1B |=  (1 << 3);               // Set WGM12
-        TCCR1B &= ~(1 << 4);               // Clear WGM13
+        TCCR1A_REG &= ~((1 << 0) | (1 << 1));  // Clear WGM10, WGM11
+        TCCR1B_REG |=  (1 << 3);               // Set WGM12
+        TCCR1B_REG &= ~(1 << 4);               // Clear WGM13
     }
     else if(mode == TIMER1_FAST_PWM_MODE)
 {
     // Fast PWM Mode 14, WGM13:0 = 1110
     // TOP = ICR1
 
-    TCCR1A &= ~(1 << 0);   // WGM10 = 0
-    TCCR1A |=  (1 << 1);   // WGM11 = 1
+    TCCR1A_REG &= ~(1 << 0);   // WGM10 = 0
+    TCCR1A_REG |=  (1 << 1);   // WGM11 = 1
 
-    TCCR1B |=  (1 << 3);   // WGM12 = 1
-    TCCR1B |=  (1 << 4);   // WGM13 = 1
+    TCCR1B_REG |=  (1 << 3);   // WGM12 = 1
+    TCCR1B_REG |=  (1 << 4);   // WGM13 = 1
 }
     else if(mode == TIMER1_PHASE_CORRECT_MODE)
     {
         // Phase Correct PWM 8-bit mode, WGM13:0 = 0001
-        TCCR1A |=  (1 << 0);               // Set WGM10
-        TCCR1A &= ~(1 << 1);               // Clear WGM11
-        TCCR1B &= ~((1 << 3) | (1 << 4));  // Clear WGM12, WGM13
+        TCCR1A_REG |=  (1 << 0);               // Set WGM10
+        TCCR1A_REG &= ~(1 << 1);               // Clear WGM11
+        TCCR1B_REG &= ~((1 << 3) | (1 << 4));  // Clear WGM12, WGM13
     }
 }
 
 void timer1_set_top(uint16_t top)
 {
-    ICR1 = top;
+    ICR1_REG = top;
 }
 /*
  * Start Timer1 with selected prescaler.
@@ -219,8 +219,8 @@ void timer1_set_top(uint16_t top)
  */
 void timer1_start(uint8_t prescaler)
 {
-    TCCR1B &= ~0x07;               // Clear old CS12:CS10 bits
-    TCCR1B |= (prescaler & 0x07);  // Load new prescaler value
+    TCCR1B_REG &= ~0x07;               // Clear old CS12:CS10 bits
+    TCCR1B_REG |= (prescaler & 0x07);  // Load new prescaler value
 }
 
 /*
@@ -228,7 +228,7 @@ void timer1_start(uint8_t prescaler)
  */
 void timer1_stop(void)
 {
-    TCCR1B &= ~0x07;
+    TCCR1B_REG &= ~0x07;
 }
 
 /*
@@ -236,7 +236,7 @@ void timer1_stop(void)
  */
 void timer1_setcounter(uint16_t value)
 {
-    TCNT1 = value;
+    TCNT1_REG = value;
 }
 
 /*
@@ -244,7 +244,7 @@ void timer1_setcounter(uint16_t value)
  */
 void timer1_setcompareA(uint16_t value)
 {
-    OCR1A = value;
+    OCR1A_REG = value;
 }
 
 /*
@@ -252,7 +252,7 @@ void timer1_setcompareA(uint16_t value)
  */
 void timer1_setcompareB(uint16_t value)
 {
-    OCR1B = value;
+    OCR1B_REG = value;
 }
 
 /*
@@ -260,7 +260,7 @@ void timer1_setcompareB(uint16_t value)
  */
 void timer1_setcompareC(uint16_t value)
 {
-    OCR1C = value;
+    OCR1C_REG = value;
 }
 
 /*
@@ -269,7 +269,7 @@ void timer1_setcompareC(uint16_t value)
  */
 void timer1_overflow_interrupt_enable(void)
 {
-    TIMSK1 |= (1 << 0);
+    TIMSK1_REG |= (1 << 0);
 }
 
 /*
@@ -277,7 +277,7 @@ void timer1_overflow_interrupt_enable(void)
  */
 void timer1_overflow_interrupt_disable(void)
 {
-    TIMSK1 &= ~(1 << 0);
+    TIMSK1_REG &= ~(1 << 0);
 }
 
 /*
@@ -286,7 +286,7 @@ void timer1_overflow_interrupt_disable(void)
  */
 void timer1_compareA_interrupt_enable(void)
 {
-    TIMSK1 |= (1 << 1);
+    TIMSK1_REG |= (1 << 1);
 }
 
 /*
@@ -294,7 +294,7 @@ void timer1_compareA_interrupt_enable(void)
  */
 void timer1_compareA_interrupt_disable(void)
 {
-    TIMSK1 &= ~(1 << 1);
+    TIMSK1_REG &= ~(1 << 1);
 }
 
 /*
@@ -304,7 +304,7 @@ void timer1_compareA_interrupt_disable(void)
  */
 void timer1_clear_overflow_flag(void)
 {
-    TIFR1 = (1 << 0);
+    TIFR1_REG = (1 << 0);
 }
 
 /*
@@ -314,7 +314,7 @@ void timer1_clear_overflow_flag(void)
  */
 void timer1_clear_compareA_flag(void)
 {
-    TIFR1 = (1 << 1);
+    TIFR1_REG = (1 << 1);
 }
 
 /* =========================================================
@@ -327,8 +327,8 @@ void timer1_clear_compareA_flag(void)
  */
 void timer0_pwmA_non_inverting(void)
 {
-    TCCR0A |=  (1 << 7);   // COM0A1 = 1
-    TCCR0A &= ~(1 << 6);   // COM0A0 = 0
+    TCCR0A_REG |=  (1 << 7);   // COM0A1 = 1
+    TCCR0A_REG&= ~(1 << 6);   // COM0A0 = 0
 }
 
 /*
@@ -337,7 +337,7 @@ void timer0_pwmA_non_inverting(void)
  */
 void timer0_pwmA_inverting(void)
 {
-    TCCR0A |= (1 << 7) | (1 << 6);
+    TCCR0A_REG |= (1 << 7) | (1 << 6);
 }
 
 /*
@@ -346,8 +346,8 @@ void timer0_pwmA_inverting(void)
  */
 void timer0_pwmB_non_inverting(void)
 {
-    TCCR0A |=  (1 << 5);   // COM0B1 = 1
-    TCCR0A &= ~(1 << 4);   // COM0B0 = 0
+    TCCR0A_REG |=  (1 << 5);   // COM0B1 = 1
+    TCCR0A_REG &= ~(1 << 4);   // COM0B0 = 0
 }
 
 /*
@@ -356,7 +356,7 @@ void timer0_pwmB_non_inverting(void)
  */
 void timer0_pwmB_inverting(void)
 {
-    TCCR0A |= (1 << 5) | (1 << 4);
+    TCCR0A_REG |= (1 << 5) | (1 << 4);
 }
 
 /*
@@ -365,7 +365,7 @@ void timer0_pwmB_inverting(void)
  */
 void timer0_set_duty_A(uint8_t duty)
 {
-    OCR0A = duty;
+    OCR0A_REG = duty;
 }
 
 /*
@@ -374,7 +374,7 @@ void timer0_set_duty_A(uint8_t duty)
  */
 void timer0_set_duty_B(uint8_t duty)
 {
-    OCR0B = duty;
+    OCR0B_REG = duty;
 }
 
 /* =========================================================
@@ -387,8 +387,8 @@ void timer0_set_duty_B(uint8_t duty)
  */
 void timer1_pwmA_non_inverting(void)
 {
-    TCCR1A |=  (1 << 7);   // COM1A1 = 1
-    TCCR1A &= ~(1 << 6);   // COM1A0 = 0
+    TCCR1A_REG |=  (1 << 7);   // COM1A1 = 1
+    TCCR1A_REG &= ~(1 << 6);   // COM1A0 = 0
 }
 
 /*
@@ -397,7 +397,7 @@ void timer1_pwmA_non_inverting(void)
  */
 void timer1_pwmA_inverting(void)
 {
-    TCCR1A |= (1 << 7) | (1 << 6);
+    TCCR1A_REG |= (1 << 7) | (1 << 6);
 }
 
 /*
@@ -406,8 +406,8 @@ void timer1_pwmA_inverting(void)
  */
 void timer1_pwmB_non_inverting(void)
 {
-    TCCR1A |=  (1 << 5);   // COM1B1 = 1
-    TCCR1A &= ~(1 << 4);   // COM1B0 = 0
+    TCCR1A_REG |=  (1 << 5);   // COM1B1 = 1
+    TCCR1A_REG &= ~(1 << 4);   // COM1B0 = 0
 }
 
 /*
@@ -416,7 +416,7 @@ void timer1_pwmB_non_inverting(void)
  */
 void timer1_pwmB_inverting(void)
 {
-    TCCR1A |= (1 << 5) | (1 << 4);
+    TCCR1A_REG |= (1 << 5) | (1 << 4);
 }
 
 /*
@@ -425,8 +425,8 @@ void timer1_pwmB_inverting(void)
  */
 void timer1_pwmC_non_inverting(void)
 {
-    TCCR1A |=  (1 << 3);   // COM1C1 = 1
-    TCCR1A &= ~(1 << 2);   // COM1C0 = 0
+    TCCR1A_REG |=  (1 << 3);   // COM1C1 = 1
+    TCCR1A_REG &= ~(1 << 2);   // COM1C0 = 0
 }
 
 /*
@@ -435,7 +435,7 @@ void timer1_pwmC_non_inverting(void)
  */
 void timer1_pwmC_inverting(void)
 {
-    TCCR1A |= (1 << 3) | (1 << 2);
+    TCCR1A_REG |= (1 << 3) | (1 << 2);
 }
 
 /*
@@ -446,15 +446,15 @@ void timer1_pwmC_inverting(void)
  */
 void timer1_set_duty_A(uint16_t duty)
 {
-    OCR1A = duty;
+    OCR1A_REG = duty;
 }
 
 void timer1_set_duty_B(uint16_t duty)
 {
-    OCR1B = duty;
+    OCR1B_REG = duty;
 }
 
 void timer1_set_duty_C(uint16_t duty)
 {
-    OCR1C = duty;
+    OCR1C_REG = duty;
 }
