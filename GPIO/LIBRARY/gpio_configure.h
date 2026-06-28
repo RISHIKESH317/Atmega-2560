@@ -37,8 +37,8 @@
 
 /* ================= GPIO DIRECTION VALUES ================= */
 
-#define GPIO_INPUT    0
-#define GPIO_OUTPUT   1
+#define INPUT    0
+#define OUTPUT   1
 
 #define PORT_INPUT   0x00
 #define PORT_OUTPUT  0xFF
