@@ -63,7 +63,7 @@ uint8_t gpio_pin_read(uint8_t port, uint8_t pin);
 
 /* ==== GPIO TOGGLE FUNCTION ==== */
 void gpio_port_toggle (uint8_t port); //to toggle full port
-void gpio_port_toggle_value (uint8_t port, uint16_t value); // to toggle port with few pins
+void gpio_port_toggle_value (uint8_t port, uint8_t value); // to toggle port with few pins
 void gpio_pin_toggle(uint8_t port, uint8_t pin); //to toggle specific pin only 
 
 /* ==== GPIO PULL-UP FUNCTIONS ==== */
