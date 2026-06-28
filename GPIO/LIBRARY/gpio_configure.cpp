@@ -77,11 +77,11 @@ volatile uint8_t *gpio_pin_reg[11] =
  * Configure complete port direction.
  *
  * Example:
- * gpio_port_config(GPIO_PORT_B, GPIO_PORT_OUTPUT);
- * gpio_port_config(GPIO_PORT_D, GPIO_PORT_INPUT);
+ * gpio_port_config(PORT_B, PORT_OUTPUT);
+ * gpio_port_config(PORT_D, PORT_INPUT);
  *
  * Custom direction is also allowed:
- * gpio_port_config(GPIO_PORT_L, 0xF0);
+ * gpio_port_config(PORT_L, 0xF0);
  */
 void gpio_port_config(uint8_t port, uint8_t direction)
 {
@@ -90,6 +90,8 @@ void gpio_port_config(uint8_t port, uint8_t direction)
 
 /*
  * Write 8-bit value to full PORT register.
+ * Example :
+ * void gpio_port_write(PORT_B, 0x0f);
  */
 void gpio_port_write(uint8_t port, uint8_t value)
 {
@@ -112,12 +114,12 @@ uint8_t gpio_port_read(uint8_t port)
  * Configure single pin direction.
  *
  * direction:
- * GPIO_OUTPUT -> output
- * GPIO_INPUT  -> input
+ * OUTPUT -> work as output
+ * INPUT  -> work as input
  */
 void gpio_pin_config(uint8_t port, uint8_t pin, uint8_t direction)
 {
-    if(direction == GPIO_OUTPUT)
+    if(direction == OUTPUT)
     {
         *gpio_ddr_reg[port] |= (1 << pin);
     }
@@ -132,7 +134,7 @@ void gpio_pin_config(uint8_t port, uint8_t pin, uint8_t direction)
  */
 void gpio_pin_write(uint8_t port, uint8_t pin, uint8_t value)
 {
-    if(value == GPIO_HIGH)
+    if(value == HIGH)
     {
         *gpio_port_reg[port] |= (1 << pin);
     }
@@ -153,22 +155,35 @@ uint8_t gpio_pin_read(uint8_t port, uint8_t pin)
 {
     if((*gpio_pin_reg[port]) & (1 << pin))
     {
-        return GPIO_HIGH;
+        return HIGH;
     }
     else
     {
-        return GPIO_LOW;
+        return LOW;
     }
 }
+/* =========================================================
+   GPIO TOGGLE FUNCTIONS
+   ========================================================= */
 
-/*
- * Toggle one output pin.
- */
+
+/* to toggle specific pin */
 void gpio_pin_toggle(uint8_t port, uint8_t pin)
 {
     *gpio_port_reg[port] ^= (1 << pin);
 }
 
+/*to toggle entire port */
+void gpio_port_toggle(uint8_t port)
+{
+    *gpio_port_reg[port] ^= 0xFF;
+}
+
+/* To toggle few pins in port */
+void gpio_port_toggle_value(uint8_t port, uint8_t value)
+{
+    *gpio_port_reg[port] ^= value;
+}
 /* =========================================================
    GPIO PULL-UP FUNCTIONS
    ========================================================= */
