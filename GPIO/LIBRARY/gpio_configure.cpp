@@ -91,7 +91,7 @@ void gpio_port_config(uint8_t port, uint8_t direction)
 /*
  * Write 8-bit value to full PORT register.
  * Example :
- * void gpio_port_write(PORT_B, 0x0f);
+ *  gpio_port_write(PORT_B, 0x0f);
  */
 void gpio_port_write(uint8_t port, uint8_t value)
 {
@@ -148,8 +148,8 @@ void gpio_pin_write(uint8_t port, uint8_t pin, uint8_t value)
  * Read one input pin.
  *
  * Returns:
- * GPIO_HIGH if pin is high
- * GPIO_LOW  if pin is low
+ * HIGH if pin is high
+ * LOW  if pin is low
  */
 uint8_t gpio_pin_read(uint8_t port, uint8_t pin)
 {
